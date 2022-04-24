@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Fragment demo</string>
+    <string name="button_1">Add advices</string>
+    <string name="button_2">Show advices</string>
+    <string name="button_3">Add</string>
+    <string name="textview">List of advices</string>
+    <string name="author">Author</string>
+    <string name="category">Category</string>
+    <string name="content">Content</string>
+
+    <string-array name="categories_spinner">
+        <item>Lifestyle</item>
+        <item>Technologies</item>
+        <item>Miscellaneous</item>
+    </string-array>
+</resources>

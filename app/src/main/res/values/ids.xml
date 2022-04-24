@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="category_spinner" type="id" />
+    <item name="adviceAuthor" type="id" />
+    <item name="adviceCategory" type="id" />
+    <item name="adviceContent" type="id" />
+</resources>
