@@ -7,6 +7,9 @@
     <string name="author">Author</string>
     <string name="category">Category</string>
     <string name="content">Content</string>
+    <string name="advices">Advices</string>
+    <string name="add_advices">Add advices</string>
+    <string name="settings">Settings</string>
 
     <string-array name="categories_spinner">
         <item>Lifestyle</item>
