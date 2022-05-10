@@ -1,6 +1,8 @@
 package ax.ha.it.fragmentsdemo;
 
+import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -11,10 +13,10 @@ import java.util.List;
 import ax.ha.it.fragmentsdemo.databinding.ItemAdviceBinding;
 
 
-class AdviceAdapter extends RecyclerView.Adapter<AdviceAdapter.AdviceViewHolder> {
+public class AdviceAdapter extends RecyclerView.Adapter<AdviceAdapter.AdviceViewHolder> {
     private List<Advice> dataset;
     // A ViewHolder represents an item view within the RecyclerView
-    protected static class AdviceViewHolder extends RecyclerView.ViewHolder {
+    public static class AdviceViewHolder extends RecyclerView.ViewHolder {
     private final ItemAdviceBinding binding;
         public AdviceViewHolder(@NonNull ItemAdviceBinding binding) {
             super(binding.getRoot());
@@ -26,15 +28,15 @@ class AdviceAdapter extends RecyclerView.Adapter<AdviceAdapter.AdviceViewHolder>
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    protected AdviceAdapter(List<Advice> dataset) {
+    public AdviceAdapter(List<Advice> dataset) {
         this.dataset = dataset;
         notifyDataSetChanged();
     }
 
-    protected AdviceAdapter() {}
+    public AdviceAdapter() {}
 
 
-    protected void updateDataset(List<Advice> adviceList) {
+    public void updateDataset(List<Advice> adviceList) {
         this.dataset = adviceList;
         notifyDataSetChanged();
     }

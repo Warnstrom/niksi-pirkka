@@ -1,48 +1,47 @@
 package ax.ha.it.fragmentsdemo;
 
-import android.app.Application;
-
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.SavedStateHandle;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class AdviceViewModel extends AndroidViewModel {
+public class AdviceViewModel extends ViewModel {
 
     private final MutableLiveData<List<Advice>> advices;
-    private final MutableLiveData<List<Category>> categories;
-    private final NiksiPirkkaApi api;
-    public AdviceViewModel(Application application) {
-        super(application);
-        this.api = new NiksiPirkkaApi(
-                AdviceDatabase.getInstance(application.getApplicationContext()).adviceDao(),
-                AdviceDatabase.getInstance(application.getApplicationContext()).categoryDao());
-        categories = new MutableLiveData<>();
-        advices = new MutableLiveData<>();
-        advices.setValue(api.advices);
-        categories.setValue(api.categories);
+
+    public AdviceViewModel(SavedStateHandle savedStateHandle) {
+        if (savedStateHandle.contains("advices")) {
+            // Activity was restarted, fetch list from saved state
+            // and wrap inside a MutableLiveData.
+            // Note that we cannot store the actual LiveData object in the
+            // saved state as this is not supported by Bundles.
+            advices = savedStateHandle.getLiveData("advices");
+        }
+        else {
+            // First start, initialize string list
+            List<Advice> stringList = new ArrayList<>();
+            advices = new MutableLiveData<>();
+            advices.setValue(stringList);
+            savedStateHandle.set("advices", stringList);
+        }
     }
-    protected LiveData<List<Advice>> getAdvices() {
+    public LiveData<List<Advice>> getAdvices() {
         return advices;
     }
-    protected LiveData<List<Category>> getCategories() {
-        return categories;
-    }
 
-    protected void addCategory(Category category) {
-        List<Category> categoriesList = categories.getValue();
-        if (categoriesList != null) {
-            categoriesList.add(category);
-        }
-        api.insertCategory(category);
-    }
+    public void addString(Advice advice) {
 
-    protected void addString(Advice advice) {
-        List<Advice> advicesList = advices.getValue();
-        if (advicesList != null) {
-            advicesList.add(advice);
+        List<Advice> stringList = advices.getValue();
+        if (stringList != null) {
+            stringList.add(advice);
         }
-        api.insertAdvice(advice);
+        // Note: Only adding the String to the List will not notify observers.
+        // We must also call setValue (or postValue if doing this update on a background thread)
+        // to notify.
+        advices.setValue(stringList);
     }
 }
