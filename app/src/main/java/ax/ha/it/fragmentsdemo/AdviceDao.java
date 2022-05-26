@@ -1,11 +1,11 @@
 package ax.ha.it.fragmentsdemo;
 
-import java.util.List;
-
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
+
+import java.util.List;
 
 @Dao
 public interface AdviceDao {
@@ -16,10 +16,10 @@ public interface AdviceDao {
     @Update
     void update(Advice... advices);
 
-    @Query("DELETE FROM advices")
+    @Query("DELETE FROM advice")
     void deleteAllAdvices();
 
-    @Query("SELECT * FROM advices")
+    @Query("SELECT * FROM advice")
     List<Advice> getAllAdvices();
 
 }

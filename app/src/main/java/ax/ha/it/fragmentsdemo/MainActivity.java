@@ -8,7 +8,10 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -24,17 +27,30 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        BottomNavigationView navView = findViewById(R.id.nav_bottom_fragment);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_bottom_fragment);
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-        assert navHostFragment != null;
-        NavController navCo = navHostFragment.getNavController();
 
-        //NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.advices, R.id.addAdvices, R.id.settings).build();
-        NavigationUI.setupActionBarWithNavController(this, navCo, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navCo);
+        NavController navController = navHostFragment.getNavController();
+
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+        NavigationUI.setupActionBarWithNavController(this, navController);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+        // Then check for any other events
+        System.out.println("asdasd");
+        int itemId = item.getItemId();
+        System.out.println(itemId);
+        System.out.println(item);
+
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        return NavigationUI.onNavDestinationSelected(item, navController)
+                || super.onOptionsItemSelected(item);
     }
 }
